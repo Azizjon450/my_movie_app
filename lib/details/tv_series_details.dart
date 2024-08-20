@@ -6,13 +6,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_movie_app/api_key/api_key.dart';
 import 'package:my_movie_app/home_page/home_page.dart';
+import 'package:my_movie_app/reapeated_function/favourate_share.dart';
+import 'package:my_movie_app/reapeated_function/review_ui.dart';
 import 'package:my_movie_app/reapeated_function/trailer_ui.dart';
 import 'package:my_movie_app/reapeated_function/slider.dart';
 
 class TvSeriesDetails extends StatefulWidget {
   var id;
-  var newId;
-  TvSeriesDetails({this.id, this.newId});
+  //var newId;
+  TvSeriesDetails({this.id});
 
   @override
   State<TvSeriesDetails> createState() => _TvSeriesDetailsState();
@@ -42,9 +44,6 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
     var seriestrailersurl = 'https://api.themoviedb.org/3/tv/' +
         widget.id.toString() +
         '/videos?api_key=$apikey';
-    // 'https://api.themoviedb.org/3/tv/' +
-    //     widget.id.toString() +
-    //     '/videos?api_key=$apikey';
 
     var tvseriesdetailresponse = await http.get(Uri.parse(tvseriesdetailurl));
     if (tvseriesdetailresponse.statusCode == 200) {
@@ -77,7 +76,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
         });
       }
     } else {}
-    ///////////////////////////////////////////tvseries review///////////////////////////////////////////
+    /************************   TV Series review     ****************************/
 
     var tvseriesreviewresponse = await http.get(Uri.parse(tvseriesreviewurl));
     if (tvseriesreviewresponse.statusCode == 200) {
@@ -105,7 +104,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
         });
       }
     } else {}
-    ///////////////////////////////////////////similar series
+    /************************   Smilar series    ****************************/
 
     var similarseriesresponse = await http.get(Uri.parse(similarseriesurl));
     if (similarseriesresponse.statusCode == 200) {
@@ -120,7 +119,8 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
         });
       }
     } else {}
-    ///////////////////////////////////////////recommend series
+
+    /************************   Recommended Series     ****************************/
 
     var recommendseriesresponse = await http.get(Uri.parse(recommendseriesurl));
     if (recommendseriesresponse.statusCode == 200) {
@@ -136,7 +136,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
       }
     } else {}
 
-    ///////////////////////////////////////////tvseries trailer///////////////////////////////////////////
+    /************************   TV Series detail    ****************************/
     var tvseriestrailerresponse = await http.get(Uri.parse(seriestrailersurl));
     if (tvseriestrailerresponse.statusCode == 200) {
       var tvseriestrailerdata = jsonDecode(tvseriestrailerresponse.body);
@@ -151,7 +151,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
       }
       seriestrailerslist.add({'key': 'aJ0cZTcTh90'});
     } else {}
-    print(seriestrailerslist);
+    const Text("No Data");
   }
 
   @override
@@ -199,7 +199,6 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                   actions: [
                     IconButton(
                         onPressed: () {
-                          //kill all previous routes and go to home page
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -224,31 +223,35 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                   )),
               SliverList(
                   delegate: SliverChildListDelegate([
-                // addtofavoriate(
-                //   id: widget.id,
-                //   type: 'tv',
-                //   Details: TvSeriesDetails,
-                // ),
-                Row(children: [
-                  Container(
+                addtofavoriate(
+                  id: widget.id,
+                  type: 'tv',
+                  Details: TvSeriesDetails,
+                ),
+                Row(
+                  children: [
+                    Container(
                       padding: EdgeInsets.only(left: 10, top: 10),
                       height: 50,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: tvseriesdetaildata['genres']!.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                margin: EdgeInsets.only(right: 10),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(25, 25, 25, 1),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Text(TvSeriesDetails[index + 1]['genre']
-                                    .toString()));
-                          }))
-                ]),
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: tvseriesdetaildata['genres']!.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              margin: EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(25, 25, 25, 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(TvSeriesDetails[index + 1]['genre']
+                                  .toString()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 12),
                     child: Text("Series Overview : ")),
@@ -258,7 +261,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                     child: Text(TvSeriesDetails[0]['overview'].toString())),
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0, top: 10),
-                  //child: reviewUi(revdeatils: TvSeriesREview),
+                  child: ReviewUI(revdeatils: TvSeriesREview),
                 ),
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 20),
@@ -313,14 +316,13 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                 sliderList(recommendserieslist, 'Recommended Series', 'tv',
                     recommendserieslist.length),
                 Container(
-                    //     height: 50,
-                    //     child: Center(child: normaltext("By Niranjan Dahal"))
-                    )
+                    height: 50, child: Center(child: Text("By TMDB Official")))
               ]))
             ]);
           } else {
             return Center(
-                child: CircularProgressIndicator(color: Colors.amber.shade400));
+              child: CircularProgressIndicator(color: Colors.amber.shade400),
+            );
           }
         },
       ),

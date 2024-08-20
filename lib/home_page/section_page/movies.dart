@@ -38,7 +38,7 @@ class _MoviesState extends State<Movies> {
         });
       }
     } else {
-      print(popularMoviesResponse.statusCode);
+      const Text("No Data");
     }
 
     /****************************************************/

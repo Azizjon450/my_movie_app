@@ -1,8 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:my_movie_app/home_page/home_page.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:my_movie_app/home_page/section_page/authentication/auth_page.dart';
+import 'package:my_movie_app/services/firebase_options.dart';
+
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(
+  //  options: DefaultFirebaseOptions().currentPlatform,
+  //);
+  await Firebase.initializeApp(
+   options: DefaultFirebaseOptions.currentPlatform,);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const AuthPage(),
     );
   }
 }

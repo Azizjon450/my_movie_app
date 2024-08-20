@@ -63,5 +63,14 @@ android {
 flutter {
     source '../..'
 }
+// properties {
+//     distributionUrl=https://services.gradle.org/distributions/gradle-7.0.2-all.zip
 
-dependencies {}
+// }
+
+dependencies {
+    //classpath 'com.android.tools.build:gradle:7.3.0'
+    //classpath 'com.android.tools.build:gradle:7.0.2'
+    //classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+}
+

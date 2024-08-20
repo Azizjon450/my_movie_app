@@ -16,7 +16,7 @@ class _DescriptionChekUIState extends State<DescriptionChekUI> {
     if (widget.newType == 'movie') {
       return MoviesDetails(id: widget.newId,);
     } else if (widget.newType == 'tv') {
-      return TvSeriesDetails(newId: widget.newId,);
+      return TvSeriesDetails(id: widget.newId,);
     } else {
       return errorUI();
     }

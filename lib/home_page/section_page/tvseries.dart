@@ -38,7 +38,7 @@ class _TvSeriesState extends State<TvSeries> {
         });
       }
     } else {
-      print(popularTvResponse.statusCode);
+      const Text("No Data");
     }
 
     /****************************************************/
@@ -57,7 +57,7 @@ class _TvSeriesState extends State<TvSeries> {
         });
       }
     } else {
-      print(topRatedTvResponse.statusCode);
+      const Text("No Data");
     }
 
     /****************************************************/
@@ -76,7 +76,7 @@ class _TvSeriesState extends State<TvSeries> {
         });
       }
     } else {
-      print(onAirTvResponse.statusCode);
+      const Text("No Data");
     }
   }
 

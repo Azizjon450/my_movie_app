@@ -33,7 +33,7 @@ Widget sliderList(
                       ),
                     ),
                   );
-                } else if (type == 'tv') {
+                } else if (type == 'Tv') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {

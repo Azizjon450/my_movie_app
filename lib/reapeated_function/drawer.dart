@@ -1,8 +1,6 @@
-import 'package:flutter/gestures.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_movie_app/home_page/section_page/authentication/auth_page.dart';
 import 'package:my_movie_app/home_page/section_page/favoriate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -148,8 +146,7 @@ class _drawerfuncState extends State<drawerfunc> {
             ),
             listtilefunc('Subscribe US', FontAwesomeIcons.youtube,
                 ontap: () async {
-              var url =
-                  'https://www.youtube.com/@imdb';
+              var url = 'https://www.youtube.com/@imdb';
               await launch(url);
             }),
             listtilefunc('About', Icons.info, ontap: () {
@@ -171,7 +168,10 @@ class _drawerfuncState extends State<drawerfunc> {
                   });
             }),
             listtilefunc('Quit', Icons.exit_to_app_rounded, ontap: () {
-              SystemNavigator.pop();
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => AuthPage()));
+              //SystemNavigator.pop();
             }),
           ],
         ),

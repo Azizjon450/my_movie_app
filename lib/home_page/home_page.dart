@@ -1,17 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
-//import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_movie_app/api_links/all_api.dart';
 import 'package:my_movie_app/details/checker.dart';
+import 'package:my_movie_app/home_page/section_page/favoriate.dart';
 import 'package:my_movie_app/home_page/section_page/movies.dart';
 import 'package:my_movie_app/home_page/section_page/tvseries.dart';
 import 'package:my_movie_app/home_page/section_page/upcoming.dart';
 import 'package:my_movie_app/reapeated_function/drawer.dart';
 import 'package:my_movie_app/reapeated_function/searchbar_func.dart';
+import 'package:my_movie_app/sqfltelocalstorage/db_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Map<String, dynamic>> trendingWeek = [];
-  int uval = 1;
+  int head = 1;
 
   Future<void> trendingList(int checkPP) async {
     if (checkPP == 1) {
@@ -73,6 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
+      appBar: AppBar(),
       drawer: drawerfunc(),
       backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
       body: CustomScrollView(
@@ -101,10 +103,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       dropdownColor: Colors.black.withOpacity(0.6),
                       icon: Icon(
                         Icons.arrow_drop_down_sharp,
-                        color: Colors.amber,
+                        color: Colors.red,
                         size: 30,
                       ),
-                      value: uval,
+                      value: head,
                       items: const [
                         DropdownMenuItem(
                           value: 1,
@@ -132,7 +134,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       onChanged: (value) {
                         setState(() {
                           trendingWeek.clear();
-                          uval = int.parse(value.toString());
+                          head = int.parse(value.toString());
                           // trendinglist(uval);
                         });
                       },
@@ -152,7 +154,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.parallax,
               background: FutureBuilder(
-                future: trendingList(uval),
+                future: trendingList(head),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     //return carouselcontrollerimpl.CarouselSlider(
@@ -166,6 +168,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         (i) {
                           return Builder(
                             builder: (BuildContext context) {
+                              //Padding(padding: EdgeInsets.all(10));
                               return GestureDetector(
                                 onTap: () {},
                                 child: GestureDetector(
@@ -257,7 +260,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   } else {
                     return Center(
                         child: CircularProgressIndicator(
-                      color: Colors.amber,
+                      color: Colors.red,
                     ));
                   }
                 },
@@ -273,14 +276,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 serachbarFunc(),
                 SizedBox(
                   height: 45,
-                  width: MediaQuery.of(context).size.width,
                   child: TabBar(
                     physics: BouncingScrollPhysics(),
                     labelPadding: EdgeInsets.symmetric(horizontal: 25),
                     isScrollable: true,
                     controller: _tabController,
                     indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                       color: Colors.grey.withOpacity(0.4),
                     ),
                     tabs: [

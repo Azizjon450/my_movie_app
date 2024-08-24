@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/services.dart';
@@ -6,13 +5,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_movie_app/api_links/all_api.dart';
 import 'package:my_movie_app/details/checker.dart';
-import 'package:my_movie_app/home_page/section_page/favoriate.dart';
 import 'package:my_movie_app/home_page/section_page/movies.dart';
 import 'package:my_movie_app/home_page/section_page/tvseries.dart';
 import 'package:my_movie_app/home_page/section_page/upcoming.dart';
 import 'package:my_movie_app/reapeated_function/drawer.dart';
+import 'package:my_movie_app/reapeated_function/favourate_share.dart';
 import 'package:my_movie_app/reapeated_function/searchbar_func.dart';
-import 'package:my_movie_app/sqfltelocalstorage/db_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -74,19 +72,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        //automaticallyImplyLeading: false,
+        toolbarHeight: 120,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, top: 8, right: 8),
+            child: serachbarFunc(),
+          ),
+        ],
+      ),
       drawer: drawerfunc(),
       backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Color.fromRGBO(18, 18, 18, 0.9),
             title: //switch between the trending this week and trending today
                 Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Trending' + ' ⭐️',
+                Text('Top Movies: ',
                     style: TextStyle(
                         color: Colors.white.withOpacity(0.8), fontSize: 16)),
                 SizedBox(width: 10),
@@ -149,7 +157,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             pinned: true,
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
             actions: [
-               IconButton(icon: Icon(Icons.favorite), onPressed: () {}),
+              IconButton(icon: Icon(Icons.favorite), onPressed: () {addtofavoriate(id: 'id', type: 'media_type', Details: 'super',);}),
             ],
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.parallax,
@@ -236,7 +244,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                       size: 20),
                                                   SizedBox(width: 10),
                                                   Text(
-                                                    '${i['vote_average']}',
+                                                    '${i['media_type']}',
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight:
@@ -273,10 +281,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                serachbarFunc(),
+                //serachbarFunc(),
                 SizedBox(
-                  height: 45,
+                  height: 60,
                   child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
                     physics: BouncingScrollPhysics(),
                     labelPadding: EdgeInsets.symmetric(horizontal: 25),
                     isScrollable: true,

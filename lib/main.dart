@@ -6,9 +6,6 @@ import 'package:my_movie_app/services/firebase_options.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp(
-  //  options: DefaultFirebaseOptions().currentPlatform,
-  //);
   await Firebase.initializeApp(
    options: DefaultFirebaseOptions.currentPlatform,);
   runApp(MyApp());
@@ -25,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const AuthPage(),
+      home:  AuthPage(),
     );
   }
 }

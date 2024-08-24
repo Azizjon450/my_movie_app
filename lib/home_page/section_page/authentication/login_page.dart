@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black87,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50),
 
                 // logo
-                const Icon(Icons.lock, size: 100),
+                Image.asset('assets/images/logo.png', height: 150,),
 
                 const SizedBox(
                   height: 50,
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 // google + apple sign in buttons
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button

@@ -69,7 +69,7 @@ class FavMovielist {
         [id, name, type]));
   }
 
-  ////sort by name
+  /***************   sort by name    *********************/
 
   Future<List<Map<String, dynamic>>> queryAllSorted() async {
     Database? db = await _instance.db;

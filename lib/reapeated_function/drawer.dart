@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:my_movie_app/components/square_tile.dart';
 import 'package:my_movie_app/home_page/section_page/authentication/auth_page.dart';
 import 'package:my_movie_app/home_page/section_page/favoriate.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,7 +81,8 @@ class _drawerfuncState extends State<drawerfunc> {
                       child: _image == null
                           ? CircleAvatar(
                               radius: 50,
-                              backgroundImage: AssetImage('assets/user.png'),
+                              backgroundImage:
+                                  AssetImage('assets/images/user.png'),
                             )
                           : CircleAvatar(
                               radius: 50,
@@ -96,6 +98,56 @@ class _drawerfuncState extends State<drawerfunc> {
                 ),
               ),
             ),
+            GestureDetector(
+              onTap: () {
+                Fluttertoast.showToast(
+                    msg:
+                        "This function are test mode, please waiting new feature!");
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                height: 100,
+                child: Card(
+                  color: Colors.orange,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(8),
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white30),
+                          child: Icon(
+                            Icons.workspace_premium_rounded,
+                            size: 20,
+                          ),
+                        ),
+                        const Padding(
+                          padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Premium Member",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'The best movies are collected\n for you, activate Premium!',
+                                style: TextStyle(fontSize: 10),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
             listtilefunc('Home', Icons.home, ontap: () {
               //close drawer
               Navigator.pop(context);
@@ -104,28 +156,6 @@ class _drawerfuncState extends State<drawerfunc> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => FavoriateMovies()));
             }),
-            listtilefunc(
-              'Our Blogs',
-              FontAwesomeIcons.blogger,
-              ontap: () async {
-                //webview for blog
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                      backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
-                      appBar: AppBar(
-                        backgroundColor: Color.fromRGBO(18, 18, 18, 0.9),
-                        title: Text('Our Blogs'),
-                      ),
-                      body: WebViewWidget(
-                        controller: WebViewController(),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
             listtilefunc(
               'Our Website',
               FontAwesomeIcons.solidNewspaper,
@@ -137,7 +167,7 @@ class _drawerfuncState extends State<drawerfunc> {
                       backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
                       appBar: AppBar(
                         backgroundColor: Color.fromRGBO(18, 18, 18, 0.9),
-                        title: Text('Our Website'),
+                        title: Text('https://www.themoviedb.org/'),
                       ),
                     ),
                   ),
@@ -149,8 +179,11 @@ class _drawerfuncState extends State<drawerfunc> {
               var url = 'https://www.youtube.com/@imdb';
               await launch(url);
             }),
-            listtilefunc('About', Icons.info, ontap: () {
-              showDialog(
+            listtilefunc(
+              'About',
+              Icons.info,
+              ontap: () {
+                showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
@@ -165,19 +198,31 @@ class _drawerfuncState extends State<drawerfunc> {
                             child: Text('Ok'))
                       ],
                     );
-                  });
-            }),
-            listtilefunc('Quit', Icons.exit_to_app_rounded, ontap: () {
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => AuthPage()));
-              //SystemNavigator.pop();
-            }),
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 105),
+            Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade900,
+                  borderRadius: BorderRadius.circular(12)),
+              child:
+                  listtilefunc('Log Out', Icons.exit_to_app_rounded, ontap: () {
+                //SystemNavigator.pop();
+                signUserOut();
+              }),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+void signUserOut() {
+  FirebaseAuth.instance.signOut();
 }
 
 Widget listtilefunc(String title, IconData icon, {Function? ontap}) {

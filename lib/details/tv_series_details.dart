@@ -22,7 +22,7 @@ class TvSeriesDetails extends StatefulWidget {
 
 class _TvSeriesDetailsState extends State<TvSeriesDetails> {
   var tvseriesdetaildata;
-  List<Map<String, dynamic>> TvSeriesDetails = [];
+  List<Map<String, dynamic>> tvSeriesDetails = [];
   List<Map<String, dynamic>> TvSeriesREview = [];
   List<Map<String, dynamic>> similarserieslist = [];
   List<Map<String, dynamic>> recommendserieslist = [];
@@ -49,7 +49,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
     if (tvseriesdetailresponse.statusCode == 200) {
       tvseriesdetaildata = jsonDecode(tvseriesdetailresponse.body);
       for (var i = 0; i < 1; i++) {
-        TvSeriesDetails.add({
+        tvSeriesDetails.add({
           'backdrop_path': tvseriesdetaildata['backdrop_path'],
           'title': tvseriesdetaildata['original_name'],
           'vote_average': tvseriesdetaildata['vote_average'],
@@ -59,18 +59,18 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
         });
       }
       for (var i = 0; i < tvseriesdetaildata['genres'].length; i++) {
-        TvSeriesDetails.add({
+        tvSeriesDetails.add({
           'genre': tvseriesdetaildata['genres'][i]['name'],
         });
       }
       for (var i = 0; i < tvseriesdetaildata['created_by'].length; i++) {
-        TvSeriesDetails.add({
+        tvSeriesDetails.add({
           'creator': tvseriesdetaildata['created_by'][i]['name'],
           'creatorprofile': tvseriesdetaildata['created_by'][i]['profile_path'],
         });
       }
       for (var i = 0; i < tvseriesdetaildata['seasons'].length; i++) {
-        TvSeriesDetails.add({
+        tvSeriesDetails.add({
           'season': tvseriesdetaildata['seasons'][i]['name'],
           'episode_count': tvseriesdetaildata['seasons'][i]['episode_count'],
         });
@@ -140,9 +140,8 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
     var tvseriestrailerresponse = await http.get(Uri.parse(seriestrailersurl));
     if (tvseriestrailerresponse.statusCode == 200) {
       var tvseriestrailerdata = jsonDecode(tvseriestrailerresponse.body);
-      // print(tvseriestrailerdata);
+
       for (var i = 0; i < tvseriestrailerdata['results'].length; i++) {
-        //add only if type is trailer
         if (tvseriestrailerdata['results'][i]['type'] == "Trailer") {
           seriestrailerslist.add({
             'key': tvseriestrailerdata['results'][i]['key'],
@@ -245,7 +244,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                               decoration: BoxDecoration(
                                   color: Color.fromRGBO(25, 25, 25, 1),
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Text(TvSeriesDetails[index + 1]['genre']
+                              child: Text(tvSeriesDetails[index + 1]['genre']
                                   .toString()));
                         },
                       ),
@@ -258,7 +257,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
 
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 20),
-                    child: Text(TvSeriesDetails[0]['overview'].toString())),
+                    child: Text(tvSeriesDetails[0]['overview'].toString())),
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0, top: 10),
                   child: ReviewUI(revdeatils: TvSeriesREview),
@@ -266,7 +265,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 20),
                     child: Text(
-                        "Status : " + TvSeriesDetails[0]['status'].toString())),
+                        "Status : " + tvSeriesDetails[0]['status'].toString())),
                 //created by
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 20),
@@ -278,7 +277,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                     child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: tvseriesdetaildata['created_by']!.length,
+                        itemCount: tvseriesdetaildata['created_by'].length,
                         itemBuilder: (context, index) {
                           //generes box
                           return Container(
@@ -292,12 +291,12 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                                   CircleAvatar(
                                       radius: 45,
                                       backgroundImage: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500' +
-                                              TvSeriesDetails[index + 4]
+                                          "https://image.tmdb.org/t/p/w500" +
+                                              tvSeriesDetails[index]
                                                       ['creatorprofile']
                                                   .toString())),
                                   SizedBox(height: 10),
-                                  Text(TvSeriesDetails[index + 4]['creator']
+                                  Text(tvSeriesDetails[index]['creator']
                                       .toString())
                                 ])
                               ]));
@@ -310,7 +309,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
                 Container(
                     padding: EdgeInsets.only(left: 10, top: 20),
                     child: Text("Release date : " +
-                        TvSeriesDetails[0]['releasedate'].toString())),
+                        tvSeriesDetails[0]['releasedate'].toString())),
                 sliderList(similarserieslist, 'Similar Series', 'tv',
                     similarserieslist.length),
                 sliderList(recommendserieslist, 'Recommended Series', 'tv',
@@ -321,7 +320,7 @@ class _TvSeriesDetailsState extends State<TvSeriesDetails> {
             ]);
           } else {
             return Center(
-              child: CircularProgressIndicator(color: Colors.amber.shade400),
+              child: CircularProgressIndicator(color: Colors.red.shade400),
             );
           }
         },

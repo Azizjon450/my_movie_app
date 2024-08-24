@@ -68,8 +68,8 @@ class _serachbarFuncState extends State<serachbarFunc> {
         child: Column(
           children: [
             Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width,
+              height: 45,
+              width: MediaQuery.of(context).size.width*0.8,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.all(Radius.circular(10)),

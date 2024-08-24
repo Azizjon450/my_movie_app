@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black87,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 50),
 
                 // logo
-                const Icon(Icons.lock, size: 50),
+                Image.asset('assets/images/logo.png', height: 150,),
 
                 const SizedBox(
                   height: 50,
@@ -212,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                     // apple button
                     SquareTile(
-                      imagePath: 'assets/images/apple.png',
+                      imagePath: 'assets/images/apple.png', 
                       onTap: () {},
                     ),
                   ],

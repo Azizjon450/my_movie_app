@@ -20,8 +20,11 @@ class FirebaseServices {
         await auth.signInWithCredential(authCredential);
       }
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString());
     }
+  }
+
+  Future<void> newSignUserOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movie_app/components/square_tile.dart';
-import 'package:my_movie_app/home_page/section_page/authentication/auth_page.dart';
+import 'package:flutter/services.dart';
 import 'package:my_movie_app/home_page/section_page/favoriate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -210,8 +208,9 @@ class _drawerfuncState extends State<drawerfunc> {
                   borderRadius: BorderRadius.circular(12)),
               child:
                   listtilefunc('Log Out', Icons.exit_to_app_rounded, ontap: () {
-                //SystemNavigator.pop();
-                signUserOut();
+                SystemNavigator.pop();
+                //signUserOut();
+                
               }),
             ),
           ],
@@ -221,8 +220,8 @@ class _drawerfuncState extends State<drawerfunc> {
   }
 }
 
-void signUserOut() {
-  FirebaseAuth.instance.signOut();
+Future<void> signUserOut() async {
+  await FirebaseAuth.instance.signOut();
 }
 
 Widget listtilefunc(String title, IconData icon, {Function? ontap}) {

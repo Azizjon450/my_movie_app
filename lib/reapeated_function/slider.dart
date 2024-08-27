@@ -61,41 +61,49 @@ Widget sliderList(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 2, left: 6),
-                      child: Text(firstListName[index]['Date']),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 2, left: 6),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 2,
-                            bottom: 2,
-                            right: 5,
-                            left: 5,
-                          ),
-                          child: Row(
-                            // Row for rating
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.yellow,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 2, left: 6),
+                          child: Text(firstListName[index]['Date']),
+                        ),
+                        SizedBox(height: 10,),
+                        Padding(
+                          padding: EdgeInsets.only(top: 2, left: 6),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 2,
+                                bottom: 2,
+                                right: 5,
+                                left: 5,
                               ),
-                              const SizedBox(
-                                width: 2,
+                              child: Row(
+                                // Row for rating
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  Text(
+                                    firstListName[index]['vote_average']
+                                        .toString(),
+                                  )
+                                ],
                               ),
-                              Text(
-                                firstListName[index]['vote_average'].toString(),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      ],
+                    )
                   ],
                 ),
               ),

@@ -5,16 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:my_movie_app/api_key/api_key.dart';
 import 'package:my_movie_app/reapeated_function/slider.dart';
 
-class Upcoming extends StatefulWidget {
-  const Upcoming({super.key});
+class Soon extends StatefulWidget {
+  const Soon({super.key});
 
   @override
-  State<Upcoming> createState() => _UpcommingState();
+  State<Soon> createState() => _SoonState();
 }
 
-class _UpcommingState extends State<Upcoming> {
+class _SoonState extends State<Soon> {
   List<Map<String, dynamic>> getUpcomminglist = [];
-  Future<void> getUpcomming() async {
+  Future<void> getSoon() async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey');
     var response = await http.get(url);
@@ -37,7 +37,7 @@ class _UpcommingState extends State<Upcoming> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getUpcomming(),
+      future: getSoon(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Column(

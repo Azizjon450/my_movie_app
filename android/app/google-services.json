@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1095581371516",
+    "project_id": "authapp-e7033",
+    "storage_bucket": "authapp-e7033.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095581371516:android:9ca002a84b4d35dfc88df9",
+        "android_client_info": {
+          "package_name": "com.example.flutter_authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095581371516-p0figtebin6ni0ami219vki5qba6vtbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDAJHn4mT7bktEbY2fTYxwvf_GXP_sXQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095581371516-p0figtebin6ni0ami219vki5qba6vtbl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1095581371516-06c8v5puo5o8grvnc6k289bskp2tgrgl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterAuthentication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

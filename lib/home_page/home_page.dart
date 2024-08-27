@@ -7,7 +7,7 @@ import 'package:my_movie_app/api_links/all_api.dart';
 import 'package:my_movie_app/details/checker.dart';
 import 'package:my_movie_app/home_page/section_page/movies.dart';
 import 'package:my_movie_app/home_page/section_page/tvseries.dart';
-import 'package:my_movie_app/home_page/section_page/upcoming.dart';
+import 'package:my_movie_app/home_page/section_page/soon.dart';
 import 'package:my_movie_app/reapeated_function/drawer.dart';
 import 'package:my_movie_app/reapeated_function/favourate_share.dart';
 import 'package:my_movie_app/reapeated_function/searchbar_func.dart';
@@ -74,12 +74,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         //automaticallyImplyLeading: false,
-        toolbarHeight: 120,
+        toolbarHeight: 80,
+        title: const Text(
+          'MY MOVIES',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         actions: [
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 8, top: 8, right: 8),
+          //   child: serachbarFunc(),
+          // ),
+
           Padding(
-            padding: const EdgeInsets.only(bottom: 8, top: 8, right: 8),
-            child: serachbarFunc(),
-          ),
+            padding: const EdgeInsets.only(bottom: 20.0, right: 20),
+            child: Image.asset('assets/images/logo.png'),
+          )
         ],
       ),
       drawer: drawerfunc(),
@@ -157,7 +166,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             pinned: true,
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
             actions: [
-              IconButton(icon: Icon(Icons.favorite), onPressed: () {addtofavoriate(id: 'id', type: 'media_type', Details: 'super',);}),
+              IconButton(
+                  icon: Icon(Icons.favorite),
+                  onPressed: () {
+                    addtofavoriate(
+                      id: 'id',
+                      type: 'media_type',
+                      Details: 'super',
+                    );
+                  }),
             ],
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.parallax,
@@ -281,7 +298,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                //serachbarFunc(),
+                serachbarFunc(),
                 SizedBox(
                   height: 60,
                   child: TabBar(
@@ -297,7 +314,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     tabs: [
                       Tab(child: Text('Tv Series')),
                       Tab(child: Text('Movies')),
-                      Tab(child: Text('Upcoming')),
+                      Tab(child: Text('Soon')),
                     ],
                   ),
                 ),
@@ -308,7 +325,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     children: [
                       TvSeries(),
                       Movies(),
-                      Upcoming(),
+                      Soon(),
                     ],
                   ),
                 )

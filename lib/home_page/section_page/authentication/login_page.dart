@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:my_movie_app/components/my_button.dart';
 import 'package:my_movie_app/components/my_textfield.dart';
 import 'package:my_movie_app/components/square_tile.dart';
+import 'package:my_movie_app/home_page/home_page.dart';
+import 'package:my_movie_app/home_page/section_page/authentication/google_sign_in.dart';
 import 'package:my_movie_app/services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
@@ -78,7 +80,10 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50),
 
                 // logo
-                Image.asset('assets/images/logo.png', height: 150,),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 150,
+                ),
 
                 const SizedBox(
                   height: 50,
@@ -184,7 +189,16 @@ class _LoginPageState extends State<LoginPage> {
                     // google button
                     SquareTile(
                       imagePath: 'assets/images/google.png',
-                      onTap: () => AuthService().signInWithGoogle(),
+                      //onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () async {
+                        await FirebaseServices().signInWithGoogle();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
                     ),
 
                     const SizedBox(

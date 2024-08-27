@@ -110,7 +110,7 @@ class _serachbarFuncState extends State<serachbarFunc> {
                       });
                     },
                     icon: Icon(
-                      Icons.arrow_back_ios_rounded,
+                      Icons.clear,
                       color: Colors.red.withOpacity(0.6),
                     ),
                   ),
@@ -118,7 +118,7 @@ class _serachbarFuncState extends State<serachbarFunc> {
                     Icons.search,
                     color: Colors.red,
                   ),
-                  hintText: "Search",
+                  hintText: "Search something..",
                   hintStyle: TextStyle(
                     color: Colors.white.withOpacity(0.2),
                   ),

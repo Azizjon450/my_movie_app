@@ -6,7 +6,8 @@ import 'package:my_movie_app/home_page/section_page/authentication/login_or_regi
 //import 'package:flutter_authentication/pages/login_or_register_page.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  AuthPage({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
